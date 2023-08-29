@@ -1,0 +1,70 @@
+#! /Users/booty/.asdf/shims/node
+
+console.log("Hello from a shell script!");
+
+const sonnet = `Let me not to the marriage of true minds
+Admit impediments. Love is not love
+Which alters when it alteration finds,
+Or bends with the remover to remove.
+O no, it is an ever-fixed mark
+That looks on tempests and is never shaken;
+It is the star to every wand'ring bark,
+Whose worth's unknown, although his height be taken.
+Love's not time's fool, though rosy lips and cheeks
+Within his bending sickle's compass come:
+Love alters not with his brief hours and weeks,
+But bears it out even to the edge of doom.
+If this be error and upon me proved,
+I never writ, nor no man ever loved.`;
+
+var allWords = sonnet.split(/\W+/);
+let uniqueWords = {};
+
+// count unique words in allWords
+for (let i = 0; i < allWords.length; i++) {
+  if (uniqueWords[allWords[i]]) {
+    uniqueWords[allWords[i]] += 1;
+  } else {
+    uniqueWords[allWords[i]] = 1;
+  }
+}
+
+console.log(
+  "According to an old-skool hashy count, there are",
+  Object.keys(uniqueWords).length,
+  "unique words in the sonnet."
+);
+
+let uniquesMap = new Map();
+
+// count unique words in allWords using a Map
+for (let i = 0; i < allWords.length; i++) {
+  if (uniquesMap.has(allWords[i])) {
+    uniquesMap.set(allWords[i], uniquesMap.get(allWords[i]) + 1);
+  } else {
+    uniquesMap.set(allWords[i], 1);
+  }
+}
+
+// console log how many unique words there are
+console.log(
+  "According to a Map, there are",
+  uniquesMap.size,
+  "unique words in the sonnet."
+);
+
+let altStringMessage = (s) => {
+  if (s) {
+    return "The string is nonempty.";
+  } else {
+    return "The string is soooo empty.";
+  }
+};
+
+console.log(altStringMessage("hi"));
+console.log(altStringMessage(null));
+
+var stooges = ["Moe", "Larry", "Curly"];
+stooges.forEach((s) => {
+  console.log(s);
+});
