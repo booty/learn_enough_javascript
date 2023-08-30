@@ -74,3 +74,148 @@ try {
     console.log("Weird, unknown error caught:", e.message);
   }
 }
+
+/*
+# Objects
+
+Objects are key-value pairs. Keys are strings or symbols. Values can be anything. 
+Similar to dictionaries in Python, or hashes in Ruby/Perl. Or associative arrays 
+in PHP, but nobody uses that.
+*/
+
+const robot = {
+  name: "RX-009 Facesmasher",
+  left_arm: "Galaxy Punch",
+  right_arm: "Titanium Hammer",
+  special_abilities: [
+    "Nipple Twister",
+    "Fart", // Github Copilot suggested this (!!)
+    "Belly Flop",
+  ],
+  origin: {
+    planet: "Mars",
+    galaxy: "Milky Way",
+    company: "Robodroid, Inc.",
+  },
+};
+
+console.log(
+  `robot.name: ${robot.name} (created on ${robot.origin.planet} by ${robot.origin.company})`
+);
+
+/*
+# Arrays
+
+Honestly, arrays are just objects with integer keys and a special property called length.
+*/
+
+const tragedies = ["Hamlet", "Macbeth", "Romeo and Juliet", "King Lear"];
+console.log(`tragedies[0]: ${tragedies[0]}`);
+
+/*
+If you want to be cool, iterate arrays with for...of
+*/
+
+for (const tragedy of tragedies) {
+  switch (tragedy) {
+    case "Hamlet":
+      console.log("Hamlet! Yeah, totally sick! To be or not to be...");
+      break;
+    case "Macbeth":
+      console.log("Niiiiice. Out, out, brief candle! Amirite?");
+      break;
+    default:
+      console.log(`${tragedy}? Sorry, I don't know that one.`);
+  }
+}
+
+reviews = tragedies.map((tragedy) => {
+  return `...I loved ${tragedy}!\n`;
+});
+console.log(`My reviews of the Bard's plays:\n${reviews}`);
+
+/*
+# Prototypes
+
+Prototypes provide inheritance. They're like classes in other languages.
+*/
+
+function Organism(name) {
+  this.name = name;
+  this.species = "unknown";
+  this.hit_points = 100;
+
+  this.greeting = function () {
+    return "....";
+  };
+}
+
+function Human(name) {
+  this.name = name;
+  this.species = "human";
+  this.hit_points = 100;
+
+  this.greeting = function () {
+    return `Hi, I'm ${this.name}!`;
+  };
+}
+
+Human.prototype = new Organism();
+
+let alien = new Organism("Xenomorph");
+let human = new Human("Ripley");
+console.log(`alien.greeting(): ${alien.greeting()}`);
+console.log(`human.greeting(): ${human.greeting()}`);
+
+/*
+# Javascript Classes
+
+Javascript classes are syntactic sugar for prototypes. They're not real classes.
+*/
+
+class Athlete {
+  constructor(name) {
+    this.name = name;
+
+    this.greeting = function () {
+      return `I'm ${this.name}. I just like to work out, you know?`;
+    };
+  }
+}
+
+class BaseballPlayer extends Athlete {
+  constructor(name, position) {
+    super(name);
+    this.position = position;
+  }
+
+  greeting() {
+    return `I'm ${this.name} and I'm a ${this.position}.`;
+  }
+}
+
+let athlete = new Athlete("Bob Crossfit");
+let baseball_player = new BaseballPlayer("Babe Ruth", "pitcher");
+console.log(`athlete.greeting(): ${athlete.greeting()}`);
+console.log(`baseball_player.greeting(): ${baseball_player.greeting()}`);
+
+/* 
+# Modifying Native Objects
+
+This is monkey patching. It's a bad idea. Don't do it. But, I mean... you can.
+*/
+
+String.prototype.obscenify = function () {
+  return `friggin ' ${this}!`;
+};
+
+console.log(`"poptarts".obscenify(): ${"poptarts".obscenify()}`);
+
+String.prototype.is_blank = function () {
+  return /^\s*$/.test(this);
+};
+
+console.log(`"   ".is_blank(): ${"   ".is_blank()}`);
+console.log(`"  x  ".is_blank(): ${"  x  ".is_blank()}`);
+console.log(`"".is_blank(): ${"".is_blank()}`);
+console.log(`" ".is_blank(): ${" ".is_blank()}`);
